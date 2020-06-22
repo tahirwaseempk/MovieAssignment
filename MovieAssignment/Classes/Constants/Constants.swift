@@ -17,6 +17,12 @@ let APP_THEME_DE_ACTIVE_COLOR:UIColor = UIColor.lightGray
 
 let ThemeChangedNotification = NSNotification.Name(rawValue: "Theme_Changed")
 
+let IMAGE_SERVER_PATH = "https://image.tmdb.org/t/p/w92/"
+
+let SEARCH_API_PATH = "https://api.themoviedb.org/3/search/movie?api_key=e5ea3092880f4f3c25fbc537e9b37dc1&query="
+
+let GET_MOVIES_API_PATH = "https://image.tmdb.org/t/p/w92/"
+
 let PER_PAGE_ITEMS = 10
 
 class Constants: NSObject

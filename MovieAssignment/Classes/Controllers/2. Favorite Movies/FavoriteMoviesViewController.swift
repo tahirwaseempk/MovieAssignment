@@ -23,7 +23,7 @@ class FavoriteMoviesViewController: UIViewController {
         }
     }
     
-    func reloadData()
+    func reloadData(success:@escaping(_ succeeded:Bool) -> Void)
     {
         StoreManager.getAllFavoriteMovies(success: { (movies:Array<Movie>) in
             
@@ -35,17 +35,32 @@ class FavoriteMoviesViewController: UIViewController {
                 {
                     moviesListController.loadUIFromData(movies:self.movies)
                 }
+                
+                success(true)
             }
         }) { (error:Error?) in
-                
+                success(false)
         }
     }
 }
 
 extension FavoriteMoviesViewController:ListTableProtocol
 {
+    func loadPageData(page:Int, success:@escaping(_ data:Array<Movie>) -> Void, failure:@escaping(_ error:Error?) -> Void)
+    {
+        
+    }
+
+    func loadData(success:@escaping(_ data:Array<Movie>) -> Void, failure:@escaping(_ error:Error?) -> Void)
+    {
+        reloadData{(succeeded:Bool)in
+            
+            success(self.movies ?? Array<Movie>())
+        }
+    }
+
     func movieFavoriteTpped(movie:Movie, success:@escaping() -> Void, failure:@escaping(_ error:Error?) -> Void)
     {
-        reloadData()
+        reloadData{(succeeded:Bool)in success() }
     }
 }

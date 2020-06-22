@@ -12,12 +12,12 @@ public class NetworkLayer
 {
     static func getAllMovies(success:@escaping(_ data:Dictionary<String,Any>) -> Void, failure:@escaping(_ error:Error?) -> Void)
     {
-        NetworkLayer.postData(url:"https://api.themoviedb.org/3/movie/popular?api_key=e5ea3092880f4f3c25fbc537e9b37dc1", success:success, failure:failure)
+        NetworkLayer.postData(url:GET_MOVIES_API_PATH, success:success, failure:failure)
     }
     
     static func searchMovies(_ moviesName:String, page:Int, success:@escaping(_ moviesJson:Dictionary<String,Any>) -> Void, failure:@escaping(_ error:Error?) -> Void)
     {
-        let url = "https://api.themoviedb.org/3/search/movie?api_key=e5ea3092880f4f3c25fbc537e9b37dc1&query="+moviesName+"&page=\(page)"
+        let url = SEARCH_API_PATH+moviesName+"&page=\(page)"
         
         NetworkLayer.postData(url:url, success:success, failure:failure)
     }

@@ -17,6 +17,17 @@ class ListTableViewController: UIViewController, UITableViewDelegate, UITableVie
     var delegate:ListTableProtocol?
     var movies:Array<Movie>?
 
+    lazy var refreshControl: UIRefreshControl =
+    {
+        let refreshControl = UIRefreshControl()
+        
+        refreshControl.addTarget(self, action:#selector(ListTableViewController.handleRefresh(_:)), for: UIControl.Event.valueChanged)
+        
+        refreshControl.tintColor = UIColor.red
+        
+        return refreshControl
+    }()
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -26,6 +37,8 @@ class ListTableViewController: UIViewController, UITableViewDelegate, UITableVie
         tableView.delegate = self
         
         tableView.dataSource = self
+        
+        self.tableView.addSubview(self.refreshControl) 
     }
 
     func loadUIFromData(movies:Array<Movie>?)
@@ -117,6 +130,35 @@ extension ListTableViewController
                     
                 }) { (error:Error?) in
                     
+                }
+            }
+        }
+    }
+}
+
+extension ListTableViewController
+{
+    @objc func handleRefresh(_ refreshControl: UIRefreshControl)
+    {
+        if let delegate = self.delegate
+        {
+            SpinnyIndicator.showSpinny()
+            
+            delegate.loadData(success: { (movies:Array<Movie>) in
+                
+                DispatchQueue.main.async
+                {
+                    self.tableView.reloadData()
+                        
+                    refreshControl.endRefreshing()
+                    
+                    SpinnyIndicator.hideSpinny()
+                }
+            }) { (error:Error?) in
+                
+                DispatchQueue.main.async
+                {
+                    SpinnyIndicator.hideSpinny()
                 }
             }
         }

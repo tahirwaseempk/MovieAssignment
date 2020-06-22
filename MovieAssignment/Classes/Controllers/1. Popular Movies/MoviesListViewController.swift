@@ -23,10 +23,10 @@ class MoviesListViewController: UIViewController {
     {
         super.viewDidLoad()
         
-        reloadData()
+        reloadData{(success:Bool) in}
     }
     
-    func reloadData()
+    func reloadData(success:@escaping(_ succeeded:Bool) -> Void)
     {
         StoreManager.getAllMovies(success: { (movies:Array<Movie>) in
             
@@ -38,9 +38,11 @@ class MoviesListViewController: UIViewController {
                 {
                     moviesListController.loadUIFromData(movies:self.movies)
                 }
+                
+                success(true)
             }
         }) { (error:Error?) in
-           
+           success(false)
         }
     }
     
@@ -50,15 +52,15 @@ class MoviesListViewController: UIViewController {
         
         if segment.selectedSegmentIndex == 0
         {
-            self.reloadData()
+            reloadData{(success:Bool) in}
         }
         else if segment.selectedSegmentIndex == 1, let favoriteMoviesViewController = self.favoriteMoviesViewController
         {
-            favoriteMoviesViewController.reloadData()
+            favoriteMoviesViewController.reloadData{(success:Bool) in}
         }
         else if segment.selectedSegmentIndex == 2, let searchViewController = self.favoriteMoviesViewController
         {
-            searchViewController.reloadData()
+            searchViewController.reloadData{(success:Bool) in}
         }
     }
     
@@ -77,7 +79,29 @@ class MoviesListViewController: UIViewController {
         else if segue.identifier == "ListTableViewController" {
             if let moviesListController = segue.destination as? ListTableViewController {
                 self.moviesListController = moviesListController
+                moviesListController.delegate = self
             }
         }
+    }
+}
+
+extension MoviesListViewController:ListTableProtocol
+{
+    func loadPageData(page:Int, success:@escaping(_ data:Array<Movie>) -> Void, failure:@escaping(_ error:Error?) -> Void)
+    {
+        
+    }
+    
+    func loadData(success:@escaping(_ data:Array<Movie>) -> Void, failure:@escaping(_ error:Error?) -> Void)
+    {
+        reloadData{(succeeded:Bool)in
+            
+            success(self.movies ?? Array<Movie>())
+        }
+    }
+    
+    func movieFavoriteTpped(movie:Movie, success:@escaping() -> Void, failure:@escaping(_ error:Error?) -> Void)
+    {
+        
     }
 }

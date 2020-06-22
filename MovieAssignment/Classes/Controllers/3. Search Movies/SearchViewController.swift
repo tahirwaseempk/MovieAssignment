@@ -39,6 +39,7 @@ class SearchViewController: UIViewController {
             if let moviesListController = segue.destination as? ListTableViewController {
                 self.moviesListController = moviesListController
                 moviesListController.loadUIFromData(movies:self.movies)
+                moviesListController.delegate = self
             }
         }
         else if segue.identifier == "SuggestionViewController" {
@@ -54,6 +55,8 @@ extension SearchViewController:ListTableProtocol
 {
     func searchMovieName(_ movieName:String, page:Int)
     {
+        SpinnyIndicator.showSpinny()
+        
         StoreManager.searchMovies(movieName, page:page, success: { (movies:Array<Movie>) in
             
             DispatchQueue.main.async
@@ -82,11 +85,15 @@ extension SearchViewController:ListTableProtocol
                         suggestionViewController.addSuggestion(movieName)
                     }
                 }
+                
+                SpinnyIndicator.hideSpinny()
             }
         }) { (error:Error?) in
             
             DispatchQueue.main.async
             {
+                SpinnyIndicator.hideSpinny()
+
                 let alertController = UIAlertController(title:"Error!", message:error?.localizedDescription, preferredStyle: .alert)
                 let action = UIAlertAction(title: "Ok", style: .default) { (action:UIAlertAction) in
                 }
@@ -96,14 +103,19 @@ extension SearchViewController:ListTableProtocol
         }
     }
     
+    func loadPageData(page:Int, success:@escaping(_ data:Array<Movie>) -> Void, failure:@escaping(_ error:Error?) -> Void)
+    {
+        success(self.movies ?? Array<Movie>())
+    }
+
     func loadData(success:@escaping(_ data:Array<Movie>) -> Void, failure:@escaping(_ error:Error?) -> Void)
     {
-        
+        success(self.movies ?? Array<Movie>())
     }
     
     func movieFavoriteTpped(movie:Movie, success:@escaping() -> Void, failure:@escaping(_ error:Error?) -> Void)
     {
-        
+        success()
     }
 }
 

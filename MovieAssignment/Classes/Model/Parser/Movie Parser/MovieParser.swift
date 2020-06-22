@@ -78,12 +78,12 @@ extension Movie
 
         if let movieBannerUrl = json["poster_path"] as? String
         {
-            self.movieLogoUrl = "https://image.tmdb.org/t/p/w92/" + movieBannerUrl
+            self.movieLogoUrl = IMAGE_SERVER_PATH + movieBannerUrl
         }
 
         if let movieLogoUrl = json["backdrop_path"] as? String
         {
-            self.movieBannerUrl = "https://image.tmdb.org/t/p/w92/" + movieLogoUrl
+            self.movieBannerUrl = IMAGE_SERVER_PATH + movieLogoUrl
         }
     }
 }
