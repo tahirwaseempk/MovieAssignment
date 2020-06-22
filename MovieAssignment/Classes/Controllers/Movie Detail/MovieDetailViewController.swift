@@ -17,7 +17,8 @@ class MovieDetailViewController: UIViewController {
     @IBOutlet weak var contentDateLabel: UILabel!
     @IBOutlet weak var favoriteButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
-    
+    @IBOutlet weak var contentDescriptionTextView: UITextView!
+
     var movie:Movie!
 
     override func viewDidLoad()
@@ -37,8 +38,10 @@ class MovieDetailViewController: UIViewController {
          
         contentTitleLabel.text = self.movie.movieTitle
          
-        contentDateLabel.text = self.movie.movieTitle
-         
+        contentDateLabel.text = self.movie.movieReleaseDate
+        
+        contentDescriptionTextView.text = self.movie.movieContents
+        
         favoriteButton.isSelected = self.movie.isMovieFavorite
     }
     

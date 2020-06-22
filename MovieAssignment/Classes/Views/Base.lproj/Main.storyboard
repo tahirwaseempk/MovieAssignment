@@ -66,7 +66,7 @@
                                         </connections>
                                     </segmentedControl>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemPinkColor" red="1" green="0.1764705882" blue="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="7mo-pD-csH" secondAttribute="trailing" id="1wM-Rc-05h"/>
                                     <constraint firstItem="JML-C5-ima" firstAttribute="leading" secondItem="og1-Hc-Nb8" secondAttribute="leading" id="Bmc-1w-hjI"/>
@@ -90,27 +90,27 @@
                                                 <subviews>
                                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CAN-uo-9OS">
                                                         <rect key="frame" x="0.0" y="0.0" width="414" height="724"/>
-                                                        <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <connections>
                                                             <segue destination="C7m-X0-2JH" kind="embed" identifier="ListTableViewController" id="w4Q-cq-z88"/>
                                                         </connections>
                                                     </containerView>
                                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aUD-PM-17E" userLabel="Search Container">
                                                         <rect key="frame" x="828" y="0.0" width="414" height="724"/>
-                                                        <color key="backgroundColor" systemColor="systemIndigoColor" red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <connections>
                                                             <segue destination="jNv-qK-ME4" kind="embed" identifier="SearchViewController" id="lUo-57-r2z"/>
                                                         </connections>
                                                     </containerView>
                                                     <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W4U-I7-iCR" userLabel="Favourite Container">
                                                         <rect key="frame" x="414" y="0.0" width="414" height="724"/>
-                                                        <color key="backgroundColor" red="0.85834473369999997" green="0.11728527399999999" blue="0.11052035540000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <connections>
                                                             <segue destination="UIe-8R-POg" kind="embed" identifier="FavoriteMoviesViewController" id="AD8-9e-deJ"/>
                                                         </connections>
                                                     </containerView>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstItem="W4U-I7-iCR" firstAttribute="top" secondItem="hcB-jR-XxK" secondAttribute="top" id="1TM-Pk-NaV"/>
                                                     <constraint firstItem="CAN-uo-9OS" firstAttribute="leading" secondItem="hcB-jR-XxK" secondAttribute="leading" id="8sa-1G-FSx"/>
@@ -137,7 +137,7 @@
                                         </constraints>
                                     </scrollView>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="CAN-uo-9OS" firstAttribute="width" secondItem="e8z-FG-ZMa" secondAttribute="width" id="CaU-3l-i7f"/>
                                     <constraint firstAttribute="bottom" secondItem="fI0-eE-cpc" secondAttribute="bottom" id="Mym-ZC-BqR"/>
@@ -217,7 +217,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="x7h-4g-4g7" secondAttribute="trailing" id="7xM-dj-qhX"/>
                                     <constraint firstItem="SCQ-mf-dai" firstAttribute="leading" secondItem="Ht8-Rm-yvv" secondAttribute="leading" id="AvP-x4-ZVg"/>
@@ -269,7 +269,7 @@
                                         </connections>
                                     </searchBar>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="PvN-RN-2ZI" secondAttribute="bottom" id="9e6-H6-JWc"/>
                                     <constraint firstItem="PvN-RN-2ZI" firstAttribute="top" secondItem="eFz-GR-mBN" secondAttribute="top" id="KMR-cJ-wM2"/>
@@ -329,7 +329,7 @@
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0te-T3-Bo9">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="724"/>
-                                <color key="backgroundColor" systemColor="systemYellowColor" red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <segue destination="C7m-X0-2JH" kind="embed" identifier="ListTableViewController" id="kJV-j4-lEz"/>
                                 </connections>
@@ -449,7 +449,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bSl-SY-2ed" userLabel="BodyContainer">
                                 <rect key="frame" x="0.0" y="94" width="414" height="768"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mGZ-FJ-He4" userLabel="BannerImageView">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mGZ-FJ-He4" userLabel="BannerImageView">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="hT5-Wo-Wz0"/>
@@ -521,7 +521,7 @@ asdasdasdasdsda</string>
                                                 </connections>
                                             </button>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstItem="ZmZ-7q-fu9" firstAttribute="leading" secondItem="fqg-cd-7nt" secondAttribute="leading" constant="20" id="09m-Tm-F9m"/>
                                             <constraint firstItem="zMr-8g-Au1" firstAttribute="leading" secondItem="ZmZ-7q-fu9" secondAttribute="leading" id="95Y-ug-hoG"/>
@@ -538,7 +538,7 @@ asdasdasdasdsda</string>
                                         </constraints>
                                     </view>
                                 </subviews>
-                                <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="Bq7-ok-iEX" firstAttribute="leading" secondItem="bSl-SY-2ed" secondAttribute="leading" id="5uZ-rS-6h9"/>
                                     <constraint firstAttribute="trailing" secondItem="Bq7-ok-iEX" secondAttribute="trailing" id="BZs-mR-uHw"/>
@@ -558,10 +558,10 @@ asdasdasdasdsda</string>
                                     <mask key="constraints">
                                         <exclude reference="BZs-mR-uHw"/>
                                         <exclude reference="ZTQ-6e-rVb"/>
-                                        <exclude reference="reE-9d-smt"/>
                                         <exclude reference="o2i-IW-d7p"/>
-                                        <exclude reference="v7D-1H-mwf"/>
                                         <exclude reference="rWj-Iz-uxD"/>
+                                        <exclude reference="reE-9d-smt"/>
+                                        <exclude reference="v7D-1H-mwf"/>
                                     </mask>
                                 </variation>
                                 <variation key="heightClass=compact-widthClass=compact">
@@ -605,6 +605,7 @@ asdasdasdasdsda</string>
                         <outlet property="backButton" destination="y22-B9-GCL" id="xqd-rD-rsb"/>
                         <outlet property="bannerImageView" destination="mGZ-FJ-He4" id="UmW-Za-UwE"/>
                         <outlet property="contentDateLabel" destination="Cpd-AZ-gi3" id="CIa-wW-O6E"/>
+                        <outlet property="contentDescriptionTextView" destination="bUJ-Sl-OQv" id="OdY-hi-fs4"/>
                         <outlet property="contentTitleLabel" destination="ZmZ-7q-fu9" id="gwV-gW-jmi"/>
                         <outlet property="favoriteButton" destination="zMr-8g-Au1" id="ciX-Zo-foL"/>
                         <outlet property="headerTitleLabel" destination="IoJ-Ox-Ke6" id="dmu-FP-a3U"/>
