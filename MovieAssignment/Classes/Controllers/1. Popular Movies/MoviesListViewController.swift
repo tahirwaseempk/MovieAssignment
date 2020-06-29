@@ -18,7 +18,7 @@ class MoviesListViewController: UIViewController {
     var moviesListController:ListTableViewController!
     var searchViewController:SearchViewController!
     var favoriteMoviesViewController:FavoriteMoviesViewController!
-
+    
     override func viewDidLoad()
     {
         super.viewDidLoad()
@@ -89,10 +89,10 @@ extension MoviesListViewController:ListTableProtocol
 {
     func loadPageData(page:Int, success:@escaping(_ data:Array<Movie>) -> Void, failure:@escaping(_ error:Error?) -> Void)
     {
-        
+        success([Movie]())
     }
     
-    func loadData(success:@escaping(_ data:Array<Movie>) -> Void, failure:@escaping(_ error:Error?) -> Void)
+    func refreshData(success:@escaping(_ data:Array<Movie>) -> Void, failure:@escaping(_ error:Error?) -> Void)
     {
         reloadData{(succeeded:Bool)in
             
@@ -102,6 +102,6 @@ extension MoviesListViewController:ListTableProtocol
     
     func movieFavoriteTpped(movie:Movie, success:@escaping() -> Void, failure:@escaping(_ error:Error?) -> Void)
     {
-        
+        success()
     }
 }

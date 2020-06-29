@@ -51,7 +51,7 @@ extension FavoriteMoviesViewController:ListTableProtocol
         
     }
 
-    func loadData(success:@escaping(_ data:Array<Movie>) -> Void, failure:@escaping(_ error:Error?) -> Void)
+    func refreshData(success:@escaping(_ data:Array<Movie>) -> Void, failure:@escaping(_ error:Error?) -> Void)
     {
         reloadData{(succeeded:Bool)in
             

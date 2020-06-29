@@ -10,8 +10,6 @@ import UIKit
 
 public class NetworkLayer
 {
-    var userCacheURL: URL?
-
     static let userCacheQueue = OperationQueue()
 
     static func getAllMovies(success:@escaping(_ data:Dictionary<String,Any>) -> Void, failure:@escaping(_ error:Error?) -> Void)
@@ -39,15 +37,21 @@ public class NetworkLayer
         
             if let error = error
             {
-                checkCachedData(url:url, error:error, success:success, failure:failure)
+                DispatchQueue.main.async
+                {
+                    CacheManager.checkCachedData(url:url, error:error, success:success, failure:failure)
+                }
 
                 return
             }
             
             guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else
             {
-                checkCachedData(url:url, error:nil, success:success, failure:failure)
-              
+                DispatchQueue.main.async
+                {
+                    CacheManager.checkCachedData(url:url, error:nil, success:success, failure:failure)
+                }
+                
                 return
             }
 
@@ -59,18 +63,27 @@ public class NetworkLayer
                 {
                     if let json = try JSONSerialization.jsonObject(with:data, options:[]) as? Dictionary<String,Any>
                     {
-                        pushToCache(url:url, json:json)
+                        CacheManager.pushToCache(url:url, json:json)
                         
-                        success(json)
+                        DispatchQueue.main.async
+                        {
+                            success(json)
+                        }
                     }
                     else
                     {
-                        checkCachedData(url:url, error:nil, success:success, failure:failure)
+                        DispatchQueue.main.async
+                        {
+                            CacheManager.checkCachedData(url:url, error:nil, success:success, failure:failure)
+                        }
                     }
                 }
                 catch
                 {
-                    checkCachedData(url:url, error:error, success:success, failure:failure)
+                    DispatchQueue.main.async
+                    {
+                        CacheManager.checkCachedData(url:url, error:error, success:success, failure:failure)
+                    }
                 }
             }
         })
@@ -100,46 +113,4 @@ public class NetworkLayer
         }.resume()
     }
     
-    static func checkCachedData(url:URL, error:Error?, success:@escaping(_ json:Dictionary<String,Any>) -> Void, failure:@escaping(_ error:Error?) -> Void)
-    {
-        userCacheQueue.addOperation()
-        {
-            if let stream = InputStream(url:url)
-            {
-                stream.open()
-                
-                if let JSON = (try? JSONSerialization.jsonObject(with: stream, options: [])) as? Dictionary<String,Any>
-                {
-                    stream.close()
-                    
-                    success(JSON)
-                }
-                else
-                {
-                    stream.close()
-                    
-                    failure(error)
-                }
-            }
-            else
-            {
-                failure(error)
-            }
-        }
-    }
-    
-    static func pushToCache(url:URL, json:Dictionary<String,Any>)
-    {
-        userCacheQueue.addOperation()
-        {
-            if let stream = OutputStream(url:url, append:false)
-            {
-                stream.open()
-                
-                JSONSerialization.writeJSONObject(json, to:stream, options:[.prettyPrinted], error: nil)
-
-                stream.close()
-            }
-        }
-    }
 }

@@ -53,11 +53,20 @@ class SearchViewController: UIViewController {
 
 extension SearchViewController:ListTableProtocol
 {
-    func searchMovieName(_ movieName:String, page:Int)
+    func populateMovieData(_ movieName:String?)
     {
+        guard let movieName = movieName else
+        {
+            self.movies?.removeAll()
+            
+            self.reloadData()
+
+            return
+        }
+        
         SpinnyIndicator.showSpinny()
         
-        StoreManager.searchMovies(movieName, page:page, success: { (movies:Array<Movie>) in
+        searchMoviesFromServer(movieName:movieName, page:1, success: { (movies:Array<Movie>) in
             
             DispatchQueue.main.async
             {
@@ -87,6 +96,28 @@ extension SearchViewController:ListTableProtocol
                 }
                 
                 SpinnyIndicator.hideSpinny()
+                
+            } }) { (error:Error?) in }
+    }
+    
+    func searchMoviesFromServer(movieName:String?, page:Int, success:@escaping(_ data:Array<Movie>) -> Void, failure:@escaping(_ error:Error?) -> Void)
+    {
+        guard let movieName = movieName else
+        {
+            self.movies?.removeAll()
+            
+            success(self.movies ?? [Movie]())
+
+            return
+        }
+
+        StoreManager.searchMovies(movieName, page:page, success: { (movies:Array<Movie>) in
+            
+            DispatchQueue.main.async
+            {
+                SpinnyIndicator.hideSpinny()
+                
+                success(movies)
             }
         }) { (error:Error?) in
             
@@ -95,22 +126,27 @@ extension SearchViewController:ListTableProtocol
                 SpinnyIndicator.hideSpinny()
 
                 let alertController = UIAlertController(title:"Error!", message:error?.localizedDescription, preferredStyle: .alert)
+                
                 let action = UIAlertAction(title: "Ok", style: .default) { (action:UIAlertAction) in
                 }
+                
                 alertController.addAction(action)
+                
                 self.present(alertController, animated: true, completion: nil)
+                
+                failure(error)
             }
         }
     }
     
     func loadPageData(page:Int, success:@escaping(_ data:Array<Movie>) -> Void, failure:@escaping(_ error:Error?) -> Void)
     {
-        success(self.movies ?? Array<Movie>())
+        searchMoviesFromServer(movieName:searchBar.text, page:page, success:success, failure:failure)
     }
 
-    func loadData(success:@escaping(_ data:Array<Movie>) -> Void, failure:@escaping(_ error:Error?) -> Void)
+    func refreshData(success:@escaping(_ data:Array<Movie>) -> Void, failure:@escaping(_ error:Error?) -> Void)
     {
-        success(self.movies ?? Array<Movie>())
+        searchMoviesFromServer(movieName:searchBar.text, page:1, success:success, failure:failure)
     }
     
     func movieFavoriteTpped(movie:Movie, success:@escaping() -> Void, failure:@escaping(_ error:Error?) -> Void)
@@ -142,16 +178,7 @@ extension SearchViewController:UISearchBarDelegate
         
         suggestionContainerView.isHidden = true
 
-        if let count = searchBar.text?.count, count > 0
-        {
-            self.searchMovieName(searchBar.text!,page:1)
-        }
-        else
-        {
-            self.movies?.removeAll()
-            
-            self.reloadData()
-        }
+        self.populateMovieData(searchBar.text)
     }
 }
 
@@ -163,6 +190,6 @@ extension SearchViewController:SuggestionViewProtocol
 
         searchBar.resignFirstResponder()
 
-        self.searchMovieName(suggestionText,page:1)
+        self.populateMovieData(suggestionText)
     }
 }

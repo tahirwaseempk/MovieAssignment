@@ -16,7 +16,8 @@ class ListTableViewController: UIViewController, UITableViewDelegate, UITableVie
     
     var delegate:ListTableProtocol?
     var movies:Array<Movie>?
-
+    var lastFetchedPage = 1
+    
     lazy var refreshControl: UIRefreshControl =
     {
         let refreshControl = UIRefreshControl()
@@ -38,7 +39,9 @@ class ListTableViewController: UIViewController, UITableViewDelegate, UITableVie
         
         tableView.dataSource = self
         
-        self.tableView.addSubview(self.refreshControl) 
+        tableView.prefetchDataSource = self
+        
+        self.tableView.addSubview(self.refreshControl)
     }
 
     func loadUIFromData(movies:Array<Movie>?)
@@ -86,7 +89,7 @@ class ListTableViewController: UIViewController, UITableViewDelegate, UITableVie
         }
         
         checkAndLoadNextPage(indexPath.row)
-        
+
         return cell
     }
 
@@ -114,22 +117,42 @@ extension ListTableViewController:TableCellProtocol
     }
 }
 
-extension ListTableViewController
+extension ListTableViewController:UITableViewDataSourcePrefetching
 {
+    func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath])
+    {
+    }
+    
     func checkAndLoadNextPage(_ cellNumber:Int)
     {
         if let count = self.movies?.count, count <= 0 || cellNumber >= count-1
         {
             let currentlyTotalLoadedPage =  count / PER_PAGE_ITEMS;
             
-            let pageToFetch = currentlyTotalLoadedPage + 1
+            let nextPageToLoad = currentlyTotalLoadedPage + 1
             
-            if let delegate = self.delegate
+            if lastFetchedPage != nextPageToLoad, let delegate = self.delegate
             {
-                delegate.loadData(success: { (movies:Array<Movie>) in
-                    
-                }) { (error:Error?) in
-                    
+                updateVisibilityOfPageLoadingIndicator(shouldVisible:true)
+                
+                delegate.loadPageData(page:nextPageToLoad, success: { (movies:Array<Movie>) in
+                
+                    DispatchQueue.main.async
+                    {
+                        SpinnyIndicator.hideSpinny()
+                        
+                        self.lastFetchedPage = nextPageToLoad
+                        
+                        self.movies?.append(contentsOf:movies)
+                        
+                        self.updateVisibilityOfPageLoadingIndicator(shouldVisible:false)
+                        
+                        self.refreshUI()
+                    }
+                })
+                { (error:Error?) in
+                
+                    self.updateVisibilityOfPageLoadingIndicator(shouldVisible:false)
                 }
             }
         }
@@ -144,23 +167,34 @@ extension ListTableViewController
         {
             SpinnyIndicator.showSpinny()
             
-            delegate.loadData(success: { (movies:Array<Movie>) in
+            delegate.refreshData(success: { (movies:Array<Movie>) in
                 
                 DispatchQueue.main.async
                 {
                     self.tableView.reloadData()
-                        
+                    
                     refreshControl.endRefreshing()
                     
                     SpinnyIndicator.hideSpinny()
                 }
-            }) { (error:Error?) in
-                
-                DispatchQueue.main.async
-                {
-                    SpinnyIndicator.hideSpinny()
-                }
-            }
+            }) { (error:Error?) in }
+        }
+    }
+}
+
+extension ListTableViewController
+{
+    func updateVisibilityOfPageLoadingIndicator(shouldVisible:Bool)
+    {
+        pageLoadingView.isHidden = !shouldVisible
+        
+        if shouldVisible
+        {
+            pageLoadingIndicator.startAnimating()
+        }
+        else
+        {
+            pageLoadingIndicator.stopAnimating()
         }
     }
 }

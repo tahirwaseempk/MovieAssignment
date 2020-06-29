@@ -7,7 +7,7 @@ class ToastShower: NSObject
     {
         if let topController = ToastShower.topMostController()
         {
-            topController.view.makeToast(message, duration:1.0, position:.center)
+            //topController.view.makeToast(message, duration:1.0, position:.center)
         }
     }
     
@@ -15,7 +15,7 @@ class ToastShower: NSObject
     {
         if let topController = ToastShower.topMostController()
         {
-            topController.view.makeToastActivity(.center)
+            //topController.view.makeToastActivity(.center)
         }
     }
     
